@@ -1,18 +1,17 @@
-var express = require("express")
-var cors =  require("cors")
-var bodyParser = require("body-parser")
-var app = express()
-var mongoose = require("mongoose")
-const morgan = require('morgan');
-var port = process.env.PORT || 4000
+var express = require("express");
+var cors = require("cors");
+var bodyParser = require("body-parser");
+var app = express();
+var mongoose = require("mongoose");
+const morgan = require("morgan");
+var port = process.env.PORT || 4000;
 
-app.use(morgan('dev'));
-app.use(bodyParser.json())
-app.use(cors())
-app.use(bodyParser.urlencoded({ extended:false }))
+app.use(morgan("dev"));
+app.use(bodyParser.json());
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //app.use('/uploads',express.static('uploads'));
-
 
 // const MongoClient = require(‘mongodb’).MongoClient;
 // const uri = "mongodb+srv://sanduni:<password>@cluster0-rygt6.mongodb.net/test?retryWrites=true";
@@ -29,12 +28,13 @@ app.use(bodyParser.urlencoded({ extended:false }))
 //     console.log('connected to mongodb');
 // })
 
-const mongoURI = 'mongodb+srv://sanduni:sand1234@cluster0-rygt6.mongodb.net/test?retryWrites=true'
+const mongoURI =
+  "mongodb+srv://sanduni:sand1234@cluster0-rygt6.mongodb.net/test?retryWrites=true";
 
 mongoose
-    .connect(mongoURI , {useNewUrlParser:true})
-    .then(() => console.log("MongoDB Connected"))
-    .catch(err => console.log(err))
+  .connect(mongoURI, { useNewUrlParser: true })
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
 
 //Init gfs
 
@@ -71,37 +71,39 @@ mongoose
 
 //var Vehicle = require('./routes/Vehicle');
 //var Hotel = require('./routes/Hotel');
-var Users = require('../backend/routes/Users');
-var Customer = require('../backend/routes/Customer');
-var IndividualBookingRoutes = require('./routes/IndividualBooking');
-var hotelSearch = require('../backend/routes/HotelSearch');
-var vehicleSearch = require('../backend/routes/VehicleSearch');
-var NotifyEndTrip = require('../backend/routes/NotifyEndTrip');
+var Users = require("../backend/routes/Users");
+var Customer = require("../backend/routes/Customer");
+var IndividualBookingRoutes = require("./routes/IndividualBooking");
+var hotelSearch = require("../backend/routes/HotelSearch");
+var vehicleSearch = require("../backend/routes/VehicleSearch");
+var NotifyEndTrip = require("../backend/routes/NotifyEndTrip");
 
 // Initialize CORS middleware
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-})
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 //app.use('/vehicleReg' , Vehicle);
 //app.use('/hotelReg' ,Hotel);
 //app.use('/imageUp' ,Vehicle);
 //app.use('/vehicleLog' ,Vehicle);
 //app.use('/hotelLog' ,Hotel);
-app.use('/user' , Users);
-app.use('/customer',Customer);
-app.use('/individual-booking',IndividualBookingRoutes);
-app.use('/hotel',hotelSearch);
-app.use('/vehicle',vehicleSearch);
+app.use("/user", Users);
+app.use("/customer", Customer);
+app.use("/individual-booking", IndividualBookingRoutes);
+app.use("/hotel", hotelSearch);
+app.use("/vehicle", vehicleSearch);
 //app.use('/sendNotify' ,NotifyEndTrip);
 
-app.get('/',function(req,res){
-    res.send('Hello from Server');
-})
+app.get("/", function (req, res) {
+  res.send("Hello from Server");
+});
 
-
-app.listen(port , () =>{
-    console.log("Server is running on port :" +port)
-})
+app.listen(port, () => {
+  console.log("Server is running on port :" + port);
+});
